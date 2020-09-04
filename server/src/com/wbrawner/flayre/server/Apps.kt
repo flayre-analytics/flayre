@@ -49,8 +49,10 @@ fun Route.appsRoutes() {
         }
 
         get("{appId}") {
-            Apps.select { Apps.id.eq(call.parameters["appId"]!!) }
-                .singleOrNull()
+            transaction {
+                Apps.select { Apps.id.eq(call.parameters["appId"]!!) }
+                    .singleOrNull()
+            }
                 ?.let {
                     call.respond(it)
                 }
