@@ -1,6 +1,4 @@
-plugins {
-    kotlin("jvm")
-}
+apply plugin: 'kotlin'
 
 repositories {
     mavenCentral()
@@ -18,5 +16,5 @@ sourceSets {
 }
 
 dependencies {
-    implementation(kotlin("stdlib"))
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 }
