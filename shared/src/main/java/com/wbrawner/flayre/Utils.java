@@ -1,12 +1,16 @@
-package com.wbrawner.flayre
+package com.wbrawner.flayre;
 
-import kotlin.random.Random
+import java.util.Random;
 
-private val characters = ('a'..'z') + ('A'..'Z') + (0..9)
-fun randomId(length: Int): String {
-    val id = StringBuilder("")
-    while (id.length < length) {
-        id.append(characters[Random.nextInt(0, characters.size)])
+public final class Utils {
+    private static final String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    public static String randomId(int length) {
+        final var id = new StringBuilder();
+        final var random = new Random();
+        while (id.length() < length) {
+            id.append(characters.charAt(random.nextInt(characters.length())));
+        }
+        return id.toString();
     }
-    return id.toString()
 }

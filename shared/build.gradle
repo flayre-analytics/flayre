@@ -1,20 +1,8 @@
-apply plugin: 'kotlin'
+apply plugin: 'java'
 
 repositories {
     mavenCentral()
 }
 
-sourceSets {
-    main {
-        java.srcDir("src")
-        resources.srcDir("resources")
-    }
-    test {
-        java.srcDir("test")
-        resources.srcDir("testresources")
-    }
-}
-
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 }
