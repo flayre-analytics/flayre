@@ -8,9 +8,12 @@ import io.ktor.routing.*
 import org.jetbrains.exposed.sql.ResultRow
 import org.jetbrains.exposed.sql.Table
 import org.jetbrains.exposed.sql.`java-time`.datetime
+import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
+import sun.util.calendar.ZoneInfo
 import java.time.Instant
+import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.util.*
 
@@ -46,6 +49,9 @@ fun ResultRow.toEvent() = Event(
     get(Events.data)
 )
 
+fun Long.toLocalDateTime(): LocalDateTime =
+    LocalDateTime.ofEpochSecond(this / 1000, 0, ZoneOffset.UTC)
+
 fun Route.authenticatedEventsRoutes() {
     get("/events") {
         val appId = call.parameters["appId"]
@@ -53,19 +59,23 @@ fun Route.authenticatedEventsRoutes() {
             call.respond(HttpStatusCode.BadRequest, "Invalid app id")
             return@get
         }
-//        val from = call.parameters["from"]?.let {
-//            Instant.parse(it)
-//        }?: Calendar.getInstance().apply {
-//            add(Calendar.DATE, -90)
-//        }.toInstant()
-//        val to = call.parameters["to"]?.let {
-//            Instant.parse(it)
-//        }?: Calendar.getInstance().apply {
-//            add(Calendar.DATE, -90)
-//        }.toInstant()
+        val from = (call.parameters["from"]?.let {
+            Instant.parse(it).toEpochMilli()
+        } ?: Calendar.getInstance().apply {
+            add(Calendar.DATE, -90)
+        }.timeInMillis).toLocalDateTime()
+        val to = call.parameters["to"]?.let {
+            Instant.parse(it).toEpochMilli().toLocalDateTime()
+        } ?: LocalDateTime.now()
 
         call.respond(transaction {
-            Events.select { Events.appId.eq(appId) }
+            Events.select {
+                (
+                        Events.appId.eq(appId)
+                                and Events.date.greaterEq(from)
+                                and Events.date.lessEq(to)
+                        )
+            }
                 .map { it.toEvent() }
         })
     }
