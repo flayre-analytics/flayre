@@ -131,7 +131,7 @@ public class Event {
     public static Event fromResultSet(ResultSet rs) throws SQLException {
         return new Event(
                 rs.getString(rs.findColumn("id")),
-                rs.getString(rs.findColumn("name")),
+                rs.getString(rs.findColumn("app_id")),
                 rs.getDate(rs.findColumn("date")),
                 Event.InteractionType.valueOf(rs.getString(rs.findColumn("type"))),
                 rs.getString(rs.findColumn("user_agent")),
