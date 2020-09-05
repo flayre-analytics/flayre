@@ -14,6 +14,20 @@ public class EventRequest {
     public final String sessionId;
     public final String data;
 
+    public EventRequest() {
+        // Default constructor required for Spring
+        appId = null;
+        date = null;
+        type = null;
+        platform = null;
+        manufacturer = null;
+        model = null;
+        version = null;
+        locale = null;
+        sessionId = null;
+        data = null;
+    }
+
     public EventRequest(String appId,
                         Date date,
                         Event.InteractionType type,
