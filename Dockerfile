@@ -9,4 +9,4 @@ RUN /home/gradle/src/gradlew --console=plain --no-daemon server:bootJar
 FROM openjdk:14-jdk-slim
 EXPOSE 8080
 COPY --from=builder /home/gradle/src/server/build/libs/flayre-server.jar flayre-server.jar
-CMD /usr/local/openjdk-14/bin/java $JVM_ARGS -jar /flayre-server.jar
+CMD /usr/java/openjdk-14/bin/java $JVM_ARGS -jar /flayre-server.jar
