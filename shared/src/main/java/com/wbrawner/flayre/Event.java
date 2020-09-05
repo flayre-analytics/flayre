@@ -1,10 +1,12 @@
 package com.wbrawner.flayre;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 import static com.wbrawner.flayre.Utils.randomId;
 
-class Event {
+public class Event {
     private final String id;
     private final String appId;
     private final Date date;
@@ -119,11 +121,28 @@ class Event {
         return data;
     }
 
-    enum InteractionType {
+    public enum InteractionType {
         VIEW,
         CLICK,
         ERROR,
         CRASH
+    }
+
+    public static Event fromResultSet(ResultSet rs) throws SQLException {
+        return new Event(
+                rs.getString(rs.findColumn("id")),
+                rs.getString(rs.findColumn("name")),
+                rs.getDate(rs.findColumn("date")),
+                Event.InteractionType.valueOf(rs.getString(rs.findColumn("type"))),
+                rs.getString(rs.findColumn("user_agent")),
+                rs.getString(rs.findColumn("platform")),
+                rs.getString(rs.findColumn("manufacturer")),
+                rs.getString(rs.findColumn("model")),
+                rs.getString(rs.findColumn("version")),
+                rs.getString(rs.findColumn("locale")),
+                rs.getString(rs.findColumn("session_id")),
+                rs.getString(rs.findColumn("data"))
+        );
     }
 }
 

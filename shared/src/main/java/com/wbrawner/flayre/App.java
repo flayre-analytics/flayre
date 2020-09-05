@@ -2,15 +2,15 @@ package com.wbrawner.flayre;
 
 import static com.wbrawner.flayre.Utils.randomId;
 
-class App {
+public class App {
     private final String id;
     private final String name;
 
-    App(String name) {
+    public App(String name) {
         this(randomId(32), name);
     }
 
-    App(String id, String name) {
+    public App(String id, String name) {
         this.id = id;
         this.name = name;
     }
