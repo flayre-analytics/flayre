@@ -22,7 +22,7 @@ public class EventScheduler {
         this.eventRepository = eventRepository;
     }
 
-    @Scheduled(cron = "0 0 * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     public void deleteOldEvents() {
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         calendar.add(Calendar.DATE, -90);
