@@ -10,6 +10,10 @@ repositories {
     mavenCentral()
 }
 
+bootJar {
+    archiveFileName = "flayre-server.${archiveExtension.get()}"
+}
+
 dependencies {
     implementation project(':shared')
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
