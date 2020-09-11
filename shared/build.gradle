@@ -4,5 +4,7 @@ repositories {
     mavenCentral()
 }
 
+sourceCompatibility = '8'
+
 dependencies {
 }
