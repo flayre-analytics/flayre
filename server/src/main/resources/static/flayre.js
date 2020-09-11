@@ -3,6 +3,11 @@
         console.log('Flayre respects DNT');
         return;
     }
+    if (window.navigator.userAgent.indexOf('Googlebot') !== -1
+        || window.navigator.userAgent.indexOf('YandexBot') !== -1) {
+        console.log('Ignoring events for bots');
+        return;
+    }
     const flayreDomain = document.currentScript.src.split('/').slice(0, 3).join('/');
     const app = document.currentScript.dataset.app;
 
