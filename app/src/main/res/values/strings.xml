@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Flayre</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_flayre_server_url">Flayre Server URL</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="prompt_sign_in">Sign in to view events for your properties.</string>
+    <string name="action_sign_in">Sign In</string>
 </resources>
